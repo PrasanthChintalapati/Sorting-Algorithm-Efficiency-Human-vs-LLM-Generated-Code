@@ -1,0 +1,109 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You are given a **0-indexed** integer array `nums` and a target element `target`.
+
+
+A **target index** is an index `i` such that `nums[i] == target`.
+
+
+Return *a list of the target indices of* `nums` after *sorting* `nums` *in **non-decreasing** order*. If there are no target indices, return *an **empty** list*. The returned list must be sorted in **increasing** order.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** nums = [1,2,5,2,3], target = 2
+**Output:** [1,2]
+**Explanation:** After sorting, nums is [1,**2**,**2**,3,5].
+The indices where nums[i] == 2 are 1 and 2.
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** nums = [1,2,5,2,3], target = 3
+**Output:** [3]
+**Explanation:** After sorting, nums is [1,2,2,**3**,5].
+The index where nums[i] == 3 is 3.
+
+```
+
+**Example 3:**
+
+
+
+```
+
+**Input:** nums = [1,2,5,2,3], target = 5
+**Output:** [4]
+**Explanation:** After sorting, nums is [1,2,2,3,**5**].
+The index where nums[i] == 5 is 4.
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= nums.length <= 100`
+* `1 <= nums[i], target <= 100`
+
+
+
+#Test case
+solution = Solution()
+assert solution.targetIndices([3, 4, 5, 6, 7, 13, 16, 17, 25, 26, 29, 30, 32, 33, 40, 42, 43, 44, 45, 46, 47, 49, 51, 53, 54, 55, 56, 58, 59, 60, 61, 64, 65, 66, 72, 73, 75, 77, 78, 79, 84, 85, 86, 89, 91, 93, 98, 100], 4) == [1]
+assert solution.targetIndices([5, 12, 14, 15, 18, 21, 25, 26, 32, 34, 41, 49, 52, 55, 57, 58, 59, 71, 79, 82, 83, 84, 85, 87, 88, 89, 92, 94, 100], 23) == []
+assert solution.targetIndices([4, 5, 6, 8, 9, 14, 16, 24, 30, 31, 33, 36, 43, 44, 47, 49, 51, 53, 54, 59, 60, 61, 65, 66, 75, 76, 77, 78, 82, 85, 88, 89, 90, 94, 96, 98, 99], 12) == []
+assert solution.targetIndices([2, 3, 5, 6, 9, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 36, 40, 43, 44, 45, 46, 48, 49, 50, 52, 53, 56, 58, 59, 61, 62, 63, 64, 65, 69, 70, 72, 77, 78, 79, 80, 81, 82, 83, 84, 86, 87, 89, 90, 91, 93, 95, 96, 97, 98, 100], 42) == []
+assert solution.targetIndices([1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100], 14) == [12]
+assert solution.targetIndices([1, 5, 6, 7, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 43, 44, 46, 47, 48, 49, 50, 51, 53, 54, 56, 57, 59, 60, 61, 62, 63, 64, 66, 68, 70, 71, 72, 73, 74, 75, 77, 78, 79, 80, 81, 83, 84, 85, 86, 87, 88, 89, 90, 92, 93, 94, 95, 96, 98, 99, 100], 32) == [25]
+assert solution.targetIndices([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 59, 60, 61, 62, 63, 64, 65, 67, 68, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100], 31) == [26]
+assert solution.targetIndices([6, 7, 17, 21, 35, 38, 42, 85, 90, 99], 27) == []
+assert solution.targetIndices([1, 7, 8, 9, 10, 11, 13, 14, 19, 22, 24, 34, 36, 37, 40, 44, 47, 52, 54, 55, 56, 61, 62, 63, 68, 72, 83, 85, 86, 88, 90, 95, 97, 98], 37) == [13]
+assert solution.targetIndices([2, 10, 15, 21, 27, 29, 30, 32, 34, 38, 42, 48, 51, 55, 57, 61, 73, 79, 83, 89, 90, 91, 92, 100], 74) == []
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def targetIndices(self, nums: List[int], target: int) -> List[int]:
+        nums.sort()
+        return [i for i, v in enumerate(nums) if v == target]
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

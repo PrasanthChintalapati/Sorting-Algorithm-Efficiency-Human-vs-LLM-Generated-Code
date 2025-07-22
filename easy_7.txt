@@ -1,0 +1,115 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You are given an array `nums` of non-negative integers. `nums` is considered **special** if there exists a number `x` such that there are **exactly** `x` numbers in `nums` that are **greater than or equal to** `x`.
+
+
+Notice that `x` **does not** have to be an element in `nums`.
+
+
+Return `x` *if the array is **special**, otherwise, return* `-1`. It can be proven that if `nums` is special, the value for `x` is **unique**.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** nums = [3,5]
+**Output:** 2
+**Explanation:** There are 2 values (3 and 5) that are greater than or equal to 2.
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** nums = [0,0]
+**Output:** -1
+**Explanation:** No numbers fit the criteria for x.
+If x = 0, there should be 0 numbers >= x, but there are 2.
+If x = 1, there should be 1 number >= x, but there are 0.
+If x = 2, there should be 2 numbers >= x, but there are 0.
+x cannot be greater since there are only 2 numbers in nums.
+
+```
+
+**Example 3:**
+
+
+
+```
+
+**Input:** nums = [0,4,3,0,4]
+**Output:** 3
+**Explanation:** There are 3 values that are greater than or equal to 3.
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= nums.length <= 100`
+* `0 <= nums[i] <= 1000`
+
+
+
+#Test case
+solution = Solution()
+assert solution.specialArray([2, 13, 21, 32, 41, 59, 70, 71, 75, 100, 115, 118, 121, 130, 160, 169, 175, 185, 186, 199, 203, 205, 219, 226, 245, 247, 251, 252, 266, 271, 289, 321, 323, 327, 340, 354, 359, 361, 380, 398, 399, 406, 413, 433, 448, 456, 488, 492, 500, 522, 536, 547, 556, 558, 568, 573, 574, 589, 592, 600, 603, 611, 613, 623, 633, 643, 657, 670, 677, 680, 697, 710, 716, 724, 744, 751, 778, 795, 800, 808, 815, 825, 831, 832, 865, 872, 877, 895, 899, 918, 923, 928, 945, 953, 961, 973, 981, 991, 994, 995]) == 91
+assert solution.specialArray([3, 41, 109, 110, 147, 160, 181, 364, 369, 383, 398, 406, 418, 440, 463, 464, 468, 515, 627, 643, 755, 765, 824, 863, 970]) == 24
+assert solution.specialArray([1, 10, 25, 72, 83, 91, 111, 131, 132, 168, 174, 188, 189, 209, 214, 229, 230, 234, 246, 256, 261, 267, 271, 276, 279, 317, 332, 346, 361, 368, 384, 393, 402, 406, 407, 419, 420, 427, 432, 433, 452, 472, 494, 511, 512, 527, 549, 580, 593, 598, 602, 621, 622, 635, 650, 681, 683, 701, 716, 717, 727, 740, 763, 779, 816, 822, 845, 853, 880, 925, 931, 932, 942, 945, 967, 989, 991, 995]) == 74
+assert solution.specialArray([22, 46, 52, 53, 57, 66, 67, 69, 71, 74, 91, 101, 120, 123, 133, 135, 139, 141, 142, 152, 158, 165, 198, 209, 246, 250, 258, 264, 271, 330, 340, 356, 368, 369, 370, 410, 421, 432, 435, 439, 446, 450, 458, 485, 487, 504, 522, 544, 545, 551, 560, 600, 616, 619, 639, 651, 659, 662, 664, 681, 695, 706, 714, 727, 734, 738, 741, 744, 763, 765, 783, 786, 819, 820, 830, 832, 835, 843, 845, 849, 867, 881, 886, 895, 927, 929, 931, 938, 955, 961, 967, 971, 972, 978, 982, 992]) == 86
+assert solution.specialArray([76, 113, 134, 291, 329, 335, 361, 412, 509, 524, 544, 551, 564, 752, 773, 784, 857, 890, 919]) == 19
+assert solution.specialArray([7, 109, 129, 146, 182, 207, 229, 315, 335, 403, 430, 437, 507, 523, 527, 545, 548, 550, 556, 605, 625, 676, 696, 715, 716, 717, 838, 850, 875, 899, 911, 961, 993]) == 32
+assert solution.specialArray([6, 17, 26, 42, 121, 127, 138, 157, 166, 172, 176, 186, 188, 202, 240, 252, 273, 277, 279, 286, 288, 300, 305, 317, 344, 370, 389, 394, 399, 408, 417, 420, 428, 432, 439, 444, 449, 454, 456, 467, 473, 489, 497, 508, 513, 521, 534, 538, 549, 566, 587, 590, 626, 639, 660, 661, 714, 733, 757, 769, 816, 817, 863, 864, 907, 913, 921, 934, 935, 943, 949, 963]) == 68
+assert solution.specialArray([3, 12, 42, 58, 88, 90, 169, 178, 180, 188, 201, 219, 260, 270, 272, 278, 298, 324, 380, 420, 457, 507, 536, 557, 580, 586, 587, 589, 616, 634, 638, 644, 646, 650, 657, 664, 685, 694, 696, 698, 703, 729, 731, 756, 841, 848, 856, 858, 914, 923, 948, 976, 983, 990]) == 51
+assert solution.specialArray([8, 11, 22, 56, 134, 153, 173, 189, 201, 214, 234, 251, 254, 257, 315, 365, 465, 472, 475, 498, 508, 534, 540, 544, 558, 563, 577, 607, 612, 616, 661, 662, 663, 664, 680, 706, 742, 801, 840, 842, 857, 885, 892, 899, 921, 949, 952, 975, 993]) == 46
+assert solution.specialArray([281, 361, 724]) == 3
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def specialArray(self, nums: List[int]) -> int:
+        nums.sort()
+        n = len(nums)
+        for x in range(1, n + 1):
+            cnt = n - bisect_left(nums, x)
+            if cnt == x:
+                return x
+        return -1
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```
