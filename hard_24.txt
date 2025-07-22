@@ -1,0 +1,135 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You have `n` packages that you are trying to place in boxes, **one package in each box**. There are `m` suppliers that each produce boxes of **different sizes** (with infinite supply). A package can be placed in a box if the size of the package is **less than or equal to** the size of the box.
+
+
+The package sizes are given as an integer array `packages`, where `packages[i]` is the **size** of the `ith` package. The suppliers are given as a 2D integer array `boxes`, where `boxes[j]` is an array of **box sizes** that the `jth` supplier produces.
+
+
+You want to choose a **single supplier** and use boxes from them such that the **total wasted space** is **minimized**. For each package in a box, we define the space **wasted** to be `size of the box - size of the package`. The **total wasted space** is the sum of the space wasted in **all** the boxes.
+
+
+* For example, if you have to fit packages with sizes `[2,3,5]` and the supplier offers boxes of sizes `[4,8]`, you can fit the packages of size-`2` and size-`3` into two boxes of size-`4` and the package with size-`5` into a box of size-`8`. This would result in a waste of `(4-2) + (4-3) + (8-5) = 6`.
+
+
+Return *the **minimum total wasted space** by choosing the box supplier **optimally**, or* `-1` *if it is **impossible** to fit all the packages inside boxes.* Since the answer may be **large**, return it **modulo** `109 + 7`.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** packages = [2,3,5], boxes = [[4,8],[2,8]]
+**Output:** 6
+**Explanation**: It is optimal to choose the first supplier, using two size-4 boxes and one size-8 box.
+The total waste is (4-2) + (4-3) + (8-5) = 6.
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** packages = [2,3,5], boxes = [[1,4],[2,3],[3,4]]
+**Output:** -1
+**Explanation:** There is no box that the package of size 5 can fit in.
+
+```
+
+**Example 3:**
+
+
+
+```
+
+**Input:** packages = [3,5,8,10,11,12], boxes = [[12],[11,9],[10,5,14]]
+**Output:** 9
+**Explanation:** It is optimal to choose the third supplier, using two size-5 boxes, two size-10 boxes, and two size-14 boxes.
+The total waste is (5-3) + (5-5) + (10-8) + (10-10) + (14-11) + (14-12) = 9.
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `n == packages.length`
+* `m == boxes.length`
+* `1 <= n <= 105`
+* `1 <= m <= 105`
+* `1 <= packages[i] <= 105`
+* `1 <= boxes[j].length <= 105`
+* `1 <= boxes[j][k] <= 105`
+* `sum(boxes[j].length) <= 105`
+* The elements in `boxes[j]` are **distinct**.
+
+
+
+#Test case
+solution = Solution()
+assert solution.minWastedSpace([18, 46, 82, 84, 95, 100], [[54, 58], [8, 11, 20, 44, 49, 62, 72, 79, 88, 95], [5, 47, 54, 57, 68, 75, 91, 94, 100], [41, 77], [11, 59], [1, 17, 30, 43, 46, 55, 60, 70, 79, 88]]) == 51
+assert solution.minWastedSpace([5, 12, 20, 22, 34, 42, 57, 80, 86], [[58, 93, 97], [26, 50, 77, 94], [8, 14, 18, 48, 53, 56, 65, 71, 97], [14, 27, 41, 66, 93], [3, 6, 15, 21, 40, 52, 59, 76, 78, 89], [7, 22, 31, 37, 62, 73], [11, 25, 40, 47, 55, 59, 76, 83, 91]]) == 48
+assert solution.minWastedSpace([36, 75], [[42], [8, 14, 19, 25, 33, 43, 70, 72, 81, 88], [13, 22, 31, 32, 44, 49, 52, 95], [48, 64], [2, 6, 11, 23, 55, 57, 74, 75, 92, 93], [51, 76], [24]]) == 13
+assert solution.minWastedSpace([41, 43, 55, 95], [[13, 15, 51, 99], [3, 8, 16, 58, 67, 74, 77, 91, 99], [21, 26, 37, 50], [54, 94], [29, 39, 49, 55, 58, 74, 79, 96], [13, 37, 45, 59, 66, 79, 88, 94], [8, 22, 23, 56, 81, 83]]) == 15
+assert solution.minWastedSpace([19, 25, 82], [[30, 45, 60], [8, 9, 29, 34, 63, 84, 91, 95, 100], [47, 56, 95], [15, 25, 65, 67, 85, 86, 87]]) == 9
+assert solution.minWastedSpace([26, 35, 87], [[55, 81, 94], [21, 31, 32, 69, 77, 96]]) == 48
+assert solution.minWastedSpace([46, 61, 83], [[9, 18, 35, 36, 64, 74, 94, 98], [25, 33, 38, 53, 66, 72, 84], [58, 99], [50]]) == 13
+assert solution.minWastedSpace([11, 13, 45, 50, 67, 80, 96], [[10, 12, 17, 21, 24, 63, 81, 82]]) == -1
+assert solution.minWastedSpace([24, 47, 49, 65, 72, 77, 85], [[23, 57, 82], [15, 16, 34, 40, 43, 61, 94], [40], [3, 14, 24, 25, 43, 92, 95, 100], [3], [13, 20, 24, 31, 50, 61, 66, 82], [4, 6, 20, 44, 68, 83, 89], [73], [20, 35, 53, 56, 76], [10, 22, 30, 84]]) == 84
+assert solution.minWastedSpace([10, 69, 70], [[3, 17, 18, 24, 46, 47, 65, 71, 77, 80], [12, 67], [45, 69, 70, 95], [3, 21, 27, 33, 50, 53, 56, 71, 86], [6, 90], [3, 4, 19, 20, 22, 27, 46, 83, 85, 99], [5, 6, 20, 44, 70, 85, 92, 99], [11, 22, 31, 38, 43, 49, 56, 66, 68], [5, 7, 46, 76, 86, 88, 95]]) == 10
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def minWastedSpace(self, packages: List[int], boxes: List[List[int]]) -> int:
+        mod = 10**9 + 7
+        ans = inf
+        packages.sort()
+        for box in boxes:
+            box.sort()
+            if packages[-1] > box[-1]:
+                continue
+            s = i = 0
+            for b in box:
+                j = bisect_right(packages, b, lo=i)
+                s += (j - i) * b
+                i = j
+            ans = min(ans, s)
+        if ans == inf:
+            return -1
+        return (ans - sum(packages)) % mod
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

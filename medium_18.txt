@@ -1,0 +1,103 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+Given an array of strings `words` representing an English Dictionary, return *the longest word in* `words` *that can be built one character at a time by other words in* `words`.
+
+
+If there is more than one possible answer, return the longest word with the smallest lexicographical order. If there is no answer, return the empty string.
+
+
+Note that the word should be built from left to right with each additional character being added to the end of a previous word. 
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** words = ["w","wo","wor","worl","world"]
+**Output:** "world"
+**Explanation:** The word "world" can be built one character at a time by "w", "wo", "wor", and "worl".
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** words = ["a","banana","app","appl","ap","apply","apple"]
+**Output:** "apple"
+**Explanation:** Both "apply" and "apple" can be built from other words in the dictionary. However, "apple" is lexicographically smaller than "apply".
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= words.length <= 1000`
+* `1 <= words[i].length <= 30`
+* `words[i]` consists of lowercase English letters.
+
+
+
+#Test case
+solution = Solution()
+assert solution.longestWord(['x', 'z', 'x', 'f', 'h', 'm', 'o', 'a', 'r', 's', 'f', 'p', 'o', 'w', 'k', 'i', 'v', 'u', 't', 'b', 'g', 'e', 'p', 'd']) == a
+assert solution.longestWord(['k', 'f', 'k', 's', 'e', 'k']) == e
+assert solution.longestWord(['k', 'l', 'x', 'd', 'p', 'n', 'a', 'g', 'n', 'b', 'v', 'a', 'x', 'r', 't', 'j', 'p', 'e', 'i']) == a
+assert solution.longestWord(['n', 'm', 'k', 'q', 's', 'i', 'q', 'x', 'i', 'b', 'e', 't']) == b
+assert solution.longestWord(['j', 's', 'm', 'r', 'y', 'n', 'r', 'k', 's', 'u', 'q', 'x', 'g', 't', 'y', 't', 'm', 't', 'n', 'm']) == g
+assert solution.longestWord(['y', 'n', 'k', 'w', 'n', 'w', 'v', 'p', 'f', 'm', 'w', 'v', 'e', 'r', 'k', 'd', 'k', 'v', 't', 'q', 'i', 'i', 'b', 'c', 'l', 'u', 'n', 'c']) == b
+assert solution.longestWord(['m', 'd', 'x', 'w', 'c']) == c
+assert solution.longestWord(['l', 'q', 'l', 'q', 'f', 'r', 'p']) == f
+assert solution.longestWord(['c', 'h', 'e', 'h', 'n', 'd', 'j', 'i', 'w', 'c', 'z', 'r', 'e', 'n', 'y', 'w', 'r', 's', 'n']) == c
+assert solution.longestWord(['u', 'j', 'g', 'p', 'f', 'd', 'q', 'b', 'k', 't', 'k', 'g', 'v', 'm', 'q', 'u', 'p', 'b', 'h']) == b
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        cnt, ans = 0, ''
+        s = set(words)
+        for w in s:
+            n = len(w)
+            if all(w[:i] in s for i in range(1, n)):
+                if cnt < n:
+                    cnt, ans = n, w
+                elif cnt == n and w < ans:
+                    ans = w
+        return ans
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

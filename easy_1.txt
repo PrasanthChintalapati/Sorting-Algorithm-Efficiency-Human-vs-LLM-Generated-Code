@@ -1,0 +1,93 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+Given an integer array `nums`, *find three numbers whose product is maximum and return the maximum product*.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+**Input:** nums = [1,2,3]
+**Output:** 6
+
+```
+**Example 2:**
+
+
+
+```
+**Input:** nums = [1,2,3,4]
+**Output:** 24
+
+```
+**Example 3:**
+
+
+
+```
+**Input:** nums = [-1,-2,-3]
+**Output:** -6
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `3 <= nums.length <= 104`
+* `-1000 <= nums[i] <= 1000`
+
+
+
+#Test case
+solution = Solution()
+assert solution.maximumProduct([-310, 1000, -483]) == 149730000
+assert solution.maximumProduct([682, -429, -667, 172, -976, -197, 930, 226, 390, -178]) == 605422560
+assert solution.maximumProduct([-77, -257, 415, 330, 976, -947, 157]) == 237537904
+assert solution.maximumProduct([417, -957, 218, -962, 291, -382, -492, -179, 337]) == 383904378
+assert solution.maximumProduct([-179, -8, -833, -629, -789, 94, -324]) == 61780278
+assert solution.maximumProduct([422, 780, 381, 12, 770, -51, -611, -201, -316]) == 253453200
+assert solution.maximumProduct([-972, 418, 116, 545, -226]) == 119721240
+assert solution.maximumProduct([-627, -406, 701, 601, 139, 382, -596, 53, 338]) == 261958092
+assert solution.maximumProduct([604, -32, 934, 711]) == 401100696
+assert solution.maximumProduct([-558, 105, -187, 227, 594, -33, 463]) == 62429994
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def maximumProduct(self, nums: List[int]) -> int:
+        top3 = nlargest(3, nums)
+        bottom2 = nlargest(2, nums, key=lambda x: -x)
+        return max(top3[0] * top3[1] * top3[2], top3[0] * bottom2[0] * bottom2[1])
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

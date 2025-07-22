@@ -1,0 +1,113 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+Given a string `s` and an integer `k`, rearrange `s` such that the same characters are **at least** distance `k` from each other. If it is not possible to rearrange the string, return an empty string `""`.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** s = "aabbcc", k = 3
+**Output:** "abcabc"
+**Explanation:** The same letters are at least a distance of 3 from each other.
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** s = "aaabc", k = 3
+**Output:** ""
+**Explanation:** It is not possible to rearrange the string.
+
+```
+
+**Example 3:**
+
+
+
+```
+
+**Input:** s = "aaadbbcc", k = 2
+**Output:** "abacabcd"
+**Explanation:** The same letters are at least a distance of 2 from each other.
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= s.length <= 3 * 105`
+* `s` consists of only lowercase English letters.
+* `0 <= k <= s.length`
+
+
+
+#Test case
+solution = Solution()
+assert solution.rearrangeString('cxruog', 2) == 'cgorux'
+assert solution.rearrangeString('mryxn', 1) == 'mnrxy'
+assert solution.rearrangeString('zgysa', 2) == 'agsyz'
+assert solution.rearrangeString('xe', 2) == 'ex'
+assert solution.rearrangeString('fbqgxhr', 7) == 'bfghqrx'
+assert solution.rearrangeString('znvpkq', 5) == 'knpqvz'
+assert solution.rearrangeString('pg', 2) == 'gp'
+assert solution.rearrangeString('jriqc', 4) == 'cijqr'
+assert solution.rearrangeString('vrnodhe', 4) == 'dehnorv'
+assert solution.rearrangeString('xdiu', 3) == 'diux'
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def rearrangeString(self, s: str, k: int) -> str:
+        h = [(-v, c) for c, v in Counter(s).items()]
+        heapify(h)
+        q = deque()
+        ans = []
+        while h:
+            v, c = heappop(h)
+            v *= -1
+            ans.append(c)
+            q.append((v - 1, c))
+            if len(q) >= k:
+                w, c = q.popleft()
+                if w:
+                    heappush(h, (-w, c))
+        return "" if len(ans) != len(s) else "".join(ans)
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

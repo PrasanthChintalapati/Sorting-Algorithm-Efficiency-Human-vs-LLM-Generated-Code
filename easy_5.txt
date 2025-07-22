@@ -1,0 +1,100 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+Given the array `nums`, obtain a subsequence of the array whose sum of elements is **strictly greater** than the sum of the non included elements in such subsequence. 
+
+
+If there are multiple solutions, return the subsequence with **minimum size** and if there still exist multiple solutions, return the subsequence with the **maximum total sum** of all its elements. A subsequence of an array can be obtained by erasing some (possibly zero) elements from the array. 
+
+
+Note that the solution with the given constraints is guaranteed to be **unique**. Also return the answer sorted in **non-increasing** order.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** nums = [4,3,10,9,8]
+**Output:** [10,9] 
+**Explanation:** The subsequences [10,9] and [10,8] are minimal such that the sum of their elements is strictly greater than the sum of elements not included. However, the subsequence [10,9] has the maximum total sum of its elements. 
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** nums = [4,4,7,6,7]
+**Output:** [7,7,6] 
+**Explanation:** The subsequence [7,7] has the sum of its elements equal to 14 which is not strictly greater than the sum of elements not included (14 = 4 + 4 + 6). Therefore, the subsequence [7,6,7] is the minimal satisfying the conditions. Note the subsequence has to be returned in non-decreasing order.  
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= nums.length <= 500`
+* `1 <= nums[i] <= 100`
+
+
+
+#Test case
+solution = Solution()
+assert solution.minSubsequence([85, 69, 10, 70, 33, 57, 62, 84]) == [85, 84, 70]
+assert solution.minSubsequence([18]) == [18]
+assert solution.minSubsequence([8]) == [8]
+assert solution.minSubsequence([8, 64, 48, 26, 15, 18, 98, 89, 96, 24, 14]) == [98, 96, 89]
+assert solution.minSubsequence([59, 77, 70, 54, 3, 92, 23, 33, 49, 11]) == [92, 77, 70]
+assert solution.minSubsequence([32]) == [32]
+assert solution.minSubsequence([14, 81, 69, 8, 53, 100, 21, 70, 12, 76]) == [100, 81, 76]
+assert solution.minSubsequence([82]) == [82]
+assert solution.minSubsequence([11, 4, 87, 11, 21, 69, 81, 40, 21, 72]) == [87, 81, 72]
+assert solution.minSubsequence([27]) == [27]
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+        ans = []
+        s, t = sum(nums), 0
+        for x in sorted(nums, reverse=True):
+            t += x
+            ans.append(x)
+            if t > s - t:
+                break
+        return ans
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```
