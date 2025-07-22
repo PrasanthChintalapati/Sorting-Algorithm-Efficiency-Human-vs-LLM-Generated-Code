@@ -1,0 +1,93 @@
+from typing import List
+
+class Solution:
+    def maxHeight(self, cuboids: List[List[int]]) -> int:
+        # Sort each cuboid's dimensions in descending order
+        for cuboid in cuboids:
+            cuboid.sort(reverse=True)
+        
+        # Sort cuboids by all dimensions (width, length, height) in descending order
+        cuboids.sort(reverse=True)
+        
+        n = len(cuboids)
+        # dp[i] = max height achievable using cuboids up to index i
+        dp = [0] * n
+        dp[0] = cuboids[0][0]  # Height of the first cuboid
+        
+        # For each cuboid i, try stacking it on previous cuboids j
+        for i in range(1, n):
+            dp[i] = cuboids[i][0]  # Use cuboid i alone
+            for j in range(i):
+                # Check if cuboid i can be stacked on cuboid j
+                if (cuboids[i][0] <= cuboids[j][0] and 
+                    cuboids[i][1] <= cuboids[j][1] and 
+                    cuboids[i][2] <= cuboids[j][2]):
+                    dp[i] = max(dp[i], dp[j] + cuboids[i][0])
+        
+        return max(dp) if dp else cuboids[0][0]
+
+# Full code to save as max_cuboid_height.py
+import time
+import tracemalloc
+from typing import List
+
+class Solution:
+    def maxHeight(self, cuboids: List[List[int]]) -> int:
+        # Sort each cuboid's dimensions in descending order
+        for cuboid in cuboids:
+            cuboid.sort(reverse=True)
+        
+        # Sort cuboids by all dimensions (width, length, height) in descending order
+        cuboids.sort(reverse=True)
+        
+        n = len(cuboids)
+        # dp[i] = max height achievable using cuboids up to index i
+        dp = [0] * n
+        dp[0] = cuboids[0][0]  # Height of the first cuboid
+        
+        # For each cuboid i, try stacking it on previous cuboids j
+        for i in range(1, n):
+            dp[i] = cuboids[i][0]  # Use cuboid i alone
+            for j in range(i):
+                # Check if cuboid i can be stacked on cuboid j
+                if (cuboids[i][0] <= cuboids[j][0] and 
+                    cuboids[i][1] <= cuboids[j][1] and 
+                    cuboids[i][2] <= cuboids[j][2]):
+                    dp[i] = max(dp[i], dp[j] + cuboids[i][0])
+        
+        return max(dp) if dp else cuboids[0][0]
+
+# Test cases execution
+if __name__ == "__main__":
+    tracemalloc.start()
+    start_time = time.perf_counter()
+    
+    solution = Solution()
+    test_cases = [
+        ([[50,45,20],[95,37,53],[45,23,12]], 190),
+        ([[38,25,45],[76,35,3]], 76),
+        ([[7,11,17],[7,17,11],[11,7,17],[11,17,7],[17,7,11],[17,11,7]], 102),
+        ([[2,27,44],[2,50,100],[6,29,83],[10,54,79],[11,12,55],[12,78,80],[13,28,32],[13,34,45],[15,74,94],[16,35,81],[21,24,31],[23,62,101],[23,69,85],[27,87,87],[29,58,82],[37,39,67],[40,47,53],[42,76,90],[43,45,59]], 345),
+        ([[10,46,93],[11,36,60],[11,42,83],[14,59,66],[19,57,63],[19,82,94],[21,21,63],[24,41,97],[49,70,101],[63,95,100],[73,101,101]], 438),
+        ([[2,3,74],[2,40,85],[2,45,59],[2,61,76],[3,12,47],[4,23,34],[4,60,70],[5,14,91],[5,29,54],[5,45,86],[5,48,71],[5,50,99],[5,94,99],[6,45,95],[6,57,63],[7,10,75],[7,16,57],[8,8,56],[8,15,60],[8,24,72],[8,28,32],[8,32,82],[9,11,21],[9,29,41],[10,19,36],[10,63,76],[12,23,76],[12,25,88],[12,47,58],[12,49,95],[13,34,53],[13,45,92],[13,53,71],[14,30,34],[14,37,51],[15,17,60],[16,27,86],[16,42,97],[16,70,96],[17,22,45],[17,27,45],[17,51,59],[17,52,76],[18,26,31],[18,36,48],[18,59,76],[19,26,68],[19,48,75],[19,75,75],[19,87,92],[20,27,85],[21,30,86],[21,44,84],[22,63,87],[23,42,83],[23,74,92],[25,28,71],[25,37,95],[26,39,72],[27,34,67],[27,57,93],[29,31,71],[29,55,83],[29,57,84],[30,49,100],[31,45,50],[31,48,75],[34,38,38],[35,51,72],[36,47,78],[38,46,63],[39,49,58],[39,92,98],[43,55,68],[43,71,80],[43,82,99],[44,54,77],[45,66,74],[47,87,89],[49,51,67],[50,59,99],[51,53,65],[58,59,60],[58,61,86],[59,63,101],[65,79,98],[70,82,85],[70,84,101],[77,92,96],[80,81,86],[80,93,94]], 855),
+        ([[2,53,70],[8,26,75],[11,50,70],[22,29,40],[30,62,65],[44,55,58],[63,68,97],[67,87,100]], 302),
+        ([[1,71,76],[2,34,84],[2,67,86],[5,26,61],[6,16,85],[6,54,76],[7,26,74],[7,82,97],[9,30,94],[9,63,101],[9,79,96],[10,13,70],[11,31,46],[12,38,64],[13,31,52],[13,60,84],[15,29,68],[15,36,87],[15,43,92],[15,45,98],[15,65,84],[18,23,45],[18,40,85],[19,25,41],[19,58,71],[19,70,98],[20,63,71],[21,32,38],[21,36,61],[24,25,28],[24,25,40],[24,25,88],[25,38,92],[25,44,55],[26,77,100],[27,74,85],[31,46,86],[32,33,98],[32,44,85],[33,81,88],[39,49,54],[39,62,90],[39,63,88],[42,58,101],[50,58,62],[56,61,88],[57,57,63],[59,86,90],[62,79,87],[68,73,98],[70,78,87],[94,95,101]], 711),
+        ([[7,45,75],[8,22,58],[33,54,71],[43,47,58],[59,73,94]], 223),
+        ([[10,12,78],[11,12,101],[42,45,51],[45,46,53],[48,74,95]], 199),
+        ([[13,34,71],[13,47,63],[13,55,91],[14,17,21],[36,37,45],[37,53,58],[38,45,62],[50,78,94],[52,63,82],[66,71,83]], 293),
+        ([[1,10,58],[2,62,97],[2,72,98],[3,15,37],[4,11,80],[4,31,76],[4,38,75],[6,35,84],[8,63,72],[10,15,98],[16,44,69],[17,36,36],[21,45,49],[22,45,81],[23,64,80],[29,35,92],[30,71,95],[35,46,87],[36,59,86],[36,93,101],[38,71,98],[44,54,81],[67,69,74]], 510),
+        ([[1,58,84],[1,59,87],[3,97,101],[5,19,86],[5,53,91],[6,15,18],[6,47,73],[7,38,85],[8,29,86],[8,37,61],[8,45,91],[9,26,80],[11,26,72],[12,14,40],[13,21,38],[13,64,91],[13,97,101],[14,73,84],[15,66,97],[16,31,80],[17,58,86],[20,26,55],[20,56,74],[22,23,91],[23,61,64],[23,87,92],[24,48,52],[25,26,43],[26,32,54],[26,38,67],[27,35,85],[28,39,73],[30,48,75],[31,70,90],[32,37,82],[33,55,63],[35,62,101],[37,38,48],[37,45,91],[40,64,79],[41,46,60],[41,55,75],[41,75,96],[42,75,78],[43,45,72],[44,86,94],[46,58,100],[46,64,70],[47,50,67],[47,84,95],[48,67,79],[56,81,99],[63,71,82],[68,70,84],[76,80,95]], 705)
+    ]
+    
+    for i, (cuboids, expected) in enumerate(test_cases, 1):
+        result = solution.maxHeight(cuboids)
+        assert result == expected, f"Test case {i} failed: expected {expected}, got {result}"
+        print(f"Test case {i} passed: cuboids={cuboids}, output={result}")
+    
+    end_time = time.perf_counter()
+    current, peak = tracemalloc.get_traced_memory()
+    execution_time_s = end_time - start_time
+    peak_memory_mb = peak / (1024 * 1024)
+    print(f"\nExecution Time: {execution_time_s:.6f} seconds")
+    print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+    tracemalloc.stop()
