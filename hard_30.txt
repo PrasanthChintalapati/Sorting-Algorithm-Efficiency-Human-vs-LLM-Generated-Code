@@ -1,0 +1,121 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You are given an array of `events` where `events[i] = [startDayi, endDayi, valuei]`. The `ith` event starts at `startDayi`and ends at `endDayi`, and if you attend this event, you will receive a value of `valuei`. You are also given an integer `k` which represents the maximum number of events you can attend.
+
+
+You can only attend one event at a time. If you choose to attend an event, you must attend the **entire** event. Note that the end day is **inclusive**: that is, you cannot attend two events where one of them starts and the other ends on the same day.
+
+
+Return *the **maximum sum** of values that you can receive by attending events.*
+
+
+ 
+
+
+**Example 1:**
+
+
+![](https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/1700-1799/1751.Maximum%20Number%20of%20Events%20That%20Can%20Be%20Attended%20II/images/screenshot-2021-01-11-at-60048-pm.png)
+
+
+
+```
+
+**Input:** events = [[1,2,4],[3,4,3],[2,3,1]], k = 2
+**Output:** 7
+**Explanation:** Choose the green events, 0 and 1 (0-indexed) for a total value of 4 + 3 = 7.
+```
+
+**Example 2:**
+
+
+![](https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/1700-1799/1751.Maximum%20Number%20of%20Events%20That%20Can%20Be%20Attended%20II/images/screenshot-2021-01-11-at-60150-pm.png)
+
+
+
+```
+
+**Input:** events = [[1,2,4],[3,4,3],[2,3,10]], k = 2
+**Output:** 10
+**Explanation:** Choose event 2 for a total value of 10.
+Notice that you cannot attend any other event as they overlap, and that you do **not** have to attend k events.
+```
+
+**Example 3:**
+
+
+**![](https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/1700-1799/1751.Maximum%20Number%20of%20Events%20That%20Can%20Be%20Attended%20II/images/screenshot-2021-01-11-at-60703-pm.png)**
+
+
+
+```
+
+**Input:** events = [[1,1,1],[2,2,2],[3,3,3],[4,4,4]], k = 3
+**Output:** 9
+**Explanation:** Although the events do not overlap, you can only attend 3 events. Pick the highest valued three.
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= k <= events.length`
+* `1 <= k * events.length <= 106`
+* `1 <= startDayi <= endDayi <= 109`
+* `1 <= valuei <= 106`
+
+
+
+#Test case
+solution = Solution()
+assert solution.maxValue([[16, 37, 6], [49, 93, 7]], 2) == 13
+assert solution.maxValue([[8, 42, 2], [29, 47, 1], [43, 67, 2], [22, 67, 3], [48, 68, 3], [62, 78, 7], [39, 90, 5], [38, 97, 5], [74, 98, 7], [90, 99, 2]], 1) == 7
+assert solution.maxValue([[56, 66, 2], [71, 82, 7], [91, 94, 6]], 3) == 15
+assert solution.maxValue([[7, 32, 9], [44, 63, 5], [46, 79, 1], [83, 85, 1], [90, 90, 10], [80, 97, 9], [87, 98, 5], [88, 99, 3]], 8) == 25
+assert solution.maxValue([[25, 40, 6], [12, 58, 4], [47, 65, 10], [49, 80, 2], [67, 87, 5], [87, 96, 4], [97, 99, 6]], 6) == 27
+assert solution.maxValue([[16, 28, 6], [88, 92, 4], [21, 92, 1], [94, 100, 3], [56, 100, 3], [2, 100, 3]], 4) == 13
+assert solution.maxValue([[19, 39, 1], [26, 65, 7], [43, 71, 2], [67, 75, 10], [76, 97, 10], [40, 98, 2], [97, 99, 4], [79, 99, 8]], 8) == 27
+assert solution.maxValue([[34, 49, 7], [4, 84, 1], [87, 95, 5], [96, 98, 9]], 1) == 9
+assert solution.maxValue([[2, 19, 8], [31, 54, 5]], 2) == 13
+assert solution.maxValue([[2, 20, 1], [23, 23, 10], [23, 32, 5], [51, 52, 5], [56, 65, 10], [65, 79, 2], [44, 82, 10], [71, 88, 7], [18, 96, 9], [41, 99, 3]], 3) == 27
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def maxValue(self, events: List[List[int]], k: int) -> int:
+        events.sort(key=lambda x: x[1])
+        n = len(events)
+        f = [[0] * (k + 1) for _ in range(n + 1)]
+        for i, (st, _, val) in enumerate(events, 1):
+            p = bisect_left(events, st, hi=i - 1, key=lambda x: x[1])
+            for j in range(1, k + 1):
+                f[i][j] = max(f[i - 1][j], f[p][j - 1] + val)
+        return f[n][k]
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

@@ -1,0 +1,108 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You are given an integer array `nums` and an integer `k`.
+
+
+In one operation, you can pick two numbers from the array whose sum equals `k` and remove them from the array.
+
+
+Return *the maximum number of operations you can perform on the array*.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** nums = [1,2,3,4], k = 5
+**Output:** 2
+**Explanation:** Starting with nums = [1,2,3,4]:
+- Remove numbers 1 and 4, then nums = [2,3]
+- Remove numbers 2 and 3, then nums = []
+There are no more pairs that sum up to 5, hence a total of 2 operations.
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** nums = [3,1,3,4,3], k = 6
+**Output:** 1
+**Explanation:** Starting with nums = [3,1,3,4,3]:
+- Remove the first two 3's, then nums = [1,4,3]
+There are no more pairs that sum up to 6, hence a total of 1 operation.
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `1 <= nums.length <= 105`
+* `1 <= nums[i] <= 109`
+* `1 <= k <= 109`
+
+
+
+#Test case
+solution = Solution()
+assert solution.maxOperations([15, 27, 59, 66, 70, 90, 93, 98], 122) == 0
+assert solution.maxOperations([10, 12, 35, 45, 62], 80) == 1
+assert solution.maxOperations([11, 13, 20, 27, 42, 43, 44, 49, 58], 69) == 3
+assert solution.maxOperations([50, 54, 69, 72], 57) == 0
+assert solution.maxOperations([9, 17, 21, 24, 31, 32, 85], 10) == 0
+assert solution.maxOperations([5, 31, 44, 59, 92, 96, 99], 140) == 1
+assert solution.maxOperations([10, 18, 31, 33, 38, 52, 56, 69, 71], 149) == 0
+assert solution.maxOperations([2, 15, 45, 54, 98, 99, 100], 25) == 0
+assert solution.maxOperations([2, 3, 10, 19, 20, 41, 88], 103) == 0
+assert solution.maxOperations([29, 31, 65, 66, 71, 77, 79, 94, 96], 145) == 1
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        l, r, ans = 0, len(nums) - 1, 0
+        while l < r:
+            s = nums[l] + nums[r]
+            if s == k:
+                ans += 1
+                l, r = l + 1, r - 1
+            elif s > k:
+                r -= 1
+            else:
+                l += 1
+        return ans
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

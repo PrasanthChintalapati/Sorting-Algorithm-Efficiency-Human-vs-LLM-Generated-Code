@@ -1,0 +1,89 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+
+Given a list of 24-hour clock time points in **"HH:MM"** format, return *the minimum **minutes** difference between any two time-points in the list*.
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+**Input:** timePoints = ["23:59","00:00"]
+**Output:** 1
+
+```
+**Example 2:**
+
+
+
+```
+**Input:** timePoints = ["00:00","23:59","00:00"]
+**Output:** 0
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `2 <= timePoints.length <= 2 * 104`
+* `timePoints[i]` is in the format **"HH:MM"**.
+
+
+
+#Test case
+solution = Solution()
+assert solution.findMinDifference(['05:28', '03:07', '11:33', '04:24', '23:13', '17:09']) == 64
+assert solution.findMinDifference(['15:23', '07:19', '09:58']) == 159
+assert solution.findMinDifference(['16:55', '17:12', '05:08', '17:27', '08:11']) == 15
+assert solution.findMinDifference(['00:33', '20:13', '11:41', '08:41', '02:29', '21:11', '20:18', '13:32', '17:11', '19:05']) == 5
+assert solution.findMinDifference(['12:53', '17:52', '19:00', '06:51', '13:17', '03:33']) == 24
+assert solution.findMinDifference(['12:57', '00:06']) == 669
+assert solution.findMinDifference(['04:42', '22:01', '12:24']) == 401
+assert solution.findMinDifference(['12:58', '19:10', '01:18', '08:51', '04:22', '22:27', '21:46', '10:22', '21:29']) == 17
+assert solution.findMinDifference(['04:12', '04:03', '17:59', '11:43', '04:10', '15:10', '12:31', '08:07', '07:25']) == 2
+assert solution.findMinDifference(['09:29', '16:30', '11:49', '03:24', '07:25', '08:22', '08:06', '23:49', '12:19']) == 16
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def findMinDifference(self, timePoints: List[str]) -> int:
+        if len(timePoints) > 24 * 60:
+            return 0
+        mins = sorted(int(t[:2]) * 60 + int(t[3:]) for t in timePoints)
+        mins.append(mins[0] + 24 * 60)
+        res = mins[-1]
+        for i in range(1, len(mins)):
+            res = min(res, mins[i] - mins[i - 1])
+        return res
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```

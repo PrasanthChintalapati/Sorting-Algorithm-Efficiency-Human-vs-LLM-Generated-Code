@@ -1,0 +1,110 @@
+Please based on the task description write Solution to pass the provided test cases.
+You must follow the following rules:
+First, the code should be in ```python
+[Code]
+``` block.
+Second, You should not add the provided test cases into your ```python[Code]``` block.
+Third, You are not need to write the test cases, we will provide the test cases for you.
+Finally, You should make sure that the provided test cases can pass your solution.
+
+# Task description
+```python
+
+You are given an integer array `nums`. A subsequence of `nums` is called a **square streak** if:
+
+
+* The length of the subsequence is at least `2`, and
+* **after** sorting the subsequence, each element (except the first element) is the **square** of the previous number.
+
+
+Return *the length of the **longest square streak** in* `nums`*, or return* `-1` *if there is no **square streak**.*
+
+
+A **subsequence** is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+
+ 
+
+
+**Example 1:**
+
+
+
+```
+
+**Input:** nums = [4,3,6,16,8,2]
+**Output:** 3
+**Explanation:** Choose the subsequence [4,16,2]. After sorting it, it becomes [2,4,16].
+- 4 = 2 * 2.
+- 16 = 4 * 4.
+Therefore, [4,16,2] is a square streak.
+It can be shown that every subsequence of length 4 is not a square streak.
+
+```
+
+**Example 2:**
+
+
+
+```
+
+**Input:** nums = [2,3,5,6,7]
+**Output:** -1
+**Explanation:** There is no square streak in nums so return -1.
+
+```
+
+ 
+
+
+**Constraints:**
+
+
+* `2 <= nums.length <= 105`
+* `2 <= nums[i] <= 105`
+
+
+
+#Test case
+solution = Solution()
+assert solution.longestSquareStreak([89, 34, 82]) == -1
+assert solution.longestSquareStreak([46, 36, 54, 93, 63, 95, 29, 11, 56, 84]) == -1
+assert solution.longestSquareStreak([100, 34]) == -1
+assert solution.longestSquareStreak([29, 16, 99, 48]) == -1
+assert solution.longestSquareStreak([87, 90, 71, 20, 65, 16, 51, 96]) == -1
+assert solution.longestSquareStreak([60, 62, 90, 72, 19, 64, 79, 11]) == -1
+assert solution.longestSquareStreak([62, 66, 79]) == -1
+assert solution.longestSquareStreak([97, 37, 66, 22, 43, 76]) == -1
+assert solution.longestSquareStreak([98, 33, 32]) == -1
+assert solution.longestSquareStreak([50, 84]) == -1
+```
+
+# Code
+```python
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.perf_counter()
+
+class Solution:
+    def longestSquareStreak(self, nums: List[int]) -> int:
+        s = set(nums)
+        ans = -1
+        for v in nums:
+            t = 0
+            while v in s:
+                v *= v
+                t += 1
+            if t > 1:
+                ans = max(ans, t)
+        return ans
+
+end_time = time.perf_counter()
+current, peak = tracemalloc.get_traced_memory()
+execution_time_s = end_time - start_time
+peak_memory_mb = peak / (1024 * 1024)
+print(f"Execution Time: {execution_time_s:.6f} seconds")
+print(f"Peak Memory Usage: {peak_memory_mb:.6f} MB")
+tracemalloc.stop()
+```
